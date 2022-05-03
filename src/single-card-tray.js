@@ -1,10 +1,12 @@
+const fs = require("fs");
+
 const trayDepth = 32;
 const trayWidth = 70;
 const trayHeight = 130;
 const markLength = 2;
 
-const trayDepth150 = (trayDepth * 3) / 4 + trayDepth;
 const doubleTrayDepth = trayDepth * 2;
+const trayDepth150 = doubleTrayDepth * 0.75;
 
 const totalHeight = trayHeight + doubleTrayDepth + doubleTrayDepth;
 const totalWidth = trayWidth + doubleTrayDepth + doubleTrayDepth;
@@ -69,6 +71,6 @@ const path = [
   `L ${td200} ${td150}`,
 ].join(" ");
 
-const svg = `<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg"><path d="${path}" /></svg>`;
+const svg = `<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg"><path d="${path}" style="stroke: rgb(0, 0, 0); fill: none;" /></svg>`;
 
-console.log(svg);
+fs.writeFileSync(`./out/card-tray-${trayWidth}x${trayHeight}x${trayDepth}.svg`, svg);
