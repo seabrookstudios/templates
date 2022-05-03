@@ -5,6 +5,6 @@ Templates for prototyping
 
 ```
 1. edit src/single-card-tray.js to set the tray depth, width and height
-2. run: node src/single-card-tray.js > card-tray.svg
-3. import SVG into your laser cutter.
+2. node src/single-card-tray.js
+3. import SVG into your laser cutter. Your svg is in the `out/` folder.
 ```
