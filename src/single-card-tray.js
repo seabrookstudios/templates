@@ -1,8 +1,8 @@
 const fs = require("fs");
 
-const trayDepth = 32;
-const trayWidth = 70;
-const trayHeight = 130;
+const trayDepth = 40;
+const trayWidth = 210;
+const trayHeight = 100;
 const markLength = 2;
 
 const doubleTrayDepth = trayDepth * 2;
