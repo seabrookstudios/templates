@@ -7,5 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Seabrook Studios",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "glob": "^8.0.3",
+    "luxon": "^3.0.4"
+  }
 }
