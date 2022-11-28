@@ -42,6 +42,8 @@ const Positions = Array(TilesPerSheet)
 const createAveryFile = (filename, files) => {
   createNewCanvas(documentWidth, documentHeight, { background: "transparent" });
 
+  addLayer(files[0], Positions[0]);
+
   files.forEach((file, i) => {
     addLayer(file, Positions[i]);
   });
@@ -52,7 +54,7 @@ const createAveryFile = (filename, files) => {
 };
 
 const files = glob.sync("in/square45/*.png");
-const sheets = 1; // Math.ceil(files.length / TilesPerSheet);
+const sheets = Math.ceil(files.length / TilesPerSheet);
 
 Array(sheets)
   .fill(0)
