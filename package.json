@@ -9,7 +9,7 @@
   "author": "Seabrook Studios",
   "license": "MIT",
   "dependencies": {
-    "glob": "^8.0.3",
+    "glob": "^9.3.0",
     "luxon": "^3.0.4"
   }
 }
