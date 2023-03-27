@@ -33,7 +33,7 @@ const deleteWorkingFile = () => {
 
 const createNewCanvas = (width, height, { density = 300, background = "blue" } = {}) => {
   sh(
-    `convert -quality 100 -size ${width}x${height} -units PixelsPerInch -density ${density} xc:${background} temp.png`
+    `convert -quality 100 -size ${width}x${height} -units PixelsPerInch -density ${density} xc:${background} -define png:color-type=6 temp.png`
   );
 };
 
