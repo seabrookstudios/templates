@@ -54,7 +54,7 @@ const createAveryFile = (filename, files) => {
   sh(`mv -f temp.png ${filename}`);
 };
 
-const files = glob.sync("in/square45/*.png");
+const files = glob.sync(["in/square45/*.png", "in/square45/*.jpg"]);
 const sheets = Math.ceil(files.length / TilesPerSheet);
 
 Array(sheets)
