@@ -23,7 +23,7 @@ const addLayer = (layer, { gravity = "center", x = "+0", y = "+0" } = {}) => {
 
 const addAndScaleLayer = (layer, { gravity = "center", w = "100%", h = "100%", x = "+0", y = "+0" } = {}) => {
   sh(
-    `composite -quality 100 -gravity ${gravity} ${layer} -geometry ${w}x${h}${x}${y} temp.png -type TrueColorAlpha temp.png`
+    `composite -quality 100 -gravity ${gravity} '${layer}' -geometry '${w}x${h}${x}${y}' temp.png -type TrueColorAlpha temp.png`
   );
 };
 
