@@ -1,14 +1,18 @@
 const { DateTime } = require("luxon");
-const fs = require("fs");
 const glob = require("glob");
 
 const { sh, createNewCanvas, addAndScaleLayer, finalise } = require("./card-lib");
 
 const density = 300;
 const mmToPx = (mm) => Math.round((density / 25.4) * mm);
+const isBleedEnabled = () => {
+  const value = String(process.env.BLEED || "").toLowerCase();
+  return value === "1" || value === "true" || value === "yes";
+};
 
 const pageWidthMm = 210;
 const pageHeightMm = 297;
+const fullBleedMm = { w: 65.175, h: 92.175 };
 const cutLineMm = { w: 62, h: 89 };
 const edgeMarginMm = 7;
 const gapMm = 5;
@@ -22,19 +26,28 @@ const pageHeightPx = mmToPx(pageHeightMm);
 const pageCenterX = Math.round(pageWidthPx / 2);
 const pageCenterY = Math.round(pageHeightPx / 2);
 
-const slotWidthMm = cutLineMm.w;
-const slotHeightMm = cutLineMm.h;
+const getSlotCenterMm = ({ row, col, slotWidthMm, slotHeightMm }) => ({
+  x: edgeMarginMm + slotWidthMm / 2 + col * (slotWidthMm + gapMm),
+  y: edgeMarginMm + slotHeightMm / 2 + row * (slotHeightMm + gapMm),
+});
 
 const formatOffset = (px) => `${px >= 0 ? "+" : "-"}${Math.abs(px)}`;
 
-const Positions = Array(ItemsPerSheet)
+const buildPositions = () => {
+  const { w: slotWidthMm, h: slotHeightMm } = cutLineMm;
+
+  return Array(ItemsPerSheet)
   .fill(0)
   .map((_, i) => {
     const row = Math.floor(i / columns);
     const col = i % columns;
 
-    const centerXmm = edgeMarginMm + slotWidthMm / 2 + col * (slotWidthMm + gapMm);
-    const centerYmm = edgeMarginMm + slotHeightMm / 2 + row * (slotHeightMm + gapMm);
+    const { x: centerXmm, y: centerYmm } = getSlotCenterMm({
+      row,
+      col,
+      slotWidthMm,
+      slotHeightMm,
+    });
 
     const centerXpx = mmToPx(centerXmm);
     const centerYpx = mmToPx(centerYmm);
@@ -50,16 +63,23 @@ const Positions = Array(ItemsPerSheet)
     };
   })
   .reduce((obj, e) => ({ ...obj, [e.index]: { gravity: e.gravity, x: e.x, y: e.y } }), {});
+};
 
-const targetWidthPx = mmToPx(cutLineMm.w);
-const targetHeightPx = mmToPx(cutLineMm.h);
+const getTargetSizePx = (bleedEnabled) => {
+  const { w, h } = bleedEnabled ? fullBleedMm : cutLineMm;
+  return { w: mmToPx(w), h: mmToPx(h) };
+};
 
 const createAverage9File = (filename, files) => {
+  const bleedEnabled = isBleedEnabled();
+  const positions = buildPositions();
+  const { w: targetWidthPx, h: targetHeightPx } = getTargetSizePx(bleedEnabled);
+
   createNewCanvas(pageWidthPx, pageHeightPx, { background: "transparent" });
 
   files.forEach((file, i) => {
     addAndScaleLayer(file, {
-      ...Positions[i],
+      ...positions[i],
       w: `${targetWidthPx}`,
       h: `${targetHeightPx}>`,
     });
@@ -67,7 +87,7 @@ const createAverage9File = (filename, files) => {
 
   files.forEach((file, i) => {
     addAndScaleLayer(file, {
-      ...Positions[i],
+      ...positions[i],
       w: `${targetWidthPx}`,
       h: `${targetHeightPx}>`,
     });
