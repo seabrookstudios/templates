@@ -14,7 +14,7 @@ const pageWidthMm = 210;
 const pageHeightMm = 297;
 const fullBleedMm = { w: 65.175, h: 92.175 };
 const cutLineMm = { w: 62, h: 89 };
-const edgeMarginMm = 7;
+const edgeMarginMm = { x: 7, y: 10 };
 const gapMm = 5;
 
 const columns = 3;
@@ -27,8 +27,8 @@ const pageCenterX = Math.round(pageWidthPx / 2);
 const pageCenterY = Math.round(pageHeightPx / 2);
 
 const getSlotCenterMm = ({ row, col, slotWidthMm, slotHeightMm }) => ({
-  x: edgeMarginMm + slotWidthMm / 2 + col * (slotWidthMm + gapMm),
-  y: edgeMarginMm + slotHeightMm / 2 + row * (slotHeightMm + gapMm),
+  x: edgeMarginMm.x + slotWidthMm / 2 + col * (slotWidthMm + gapMm),
+  y: edgeMarginMm.y + slotHeightMm / 2 + row * (slotHeightMm + gapMm),
 });
 
 const formatOffset = (px) => `${px >= 0 ? "+" : "-"}${Math.abs(px)}`;
