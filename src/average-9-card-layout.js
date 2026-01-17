@@ -9,8 +9,9 @@ const mmToPx = (mm) => Math.round((density / 25.4) * mm);
 
 const pageWidthMm = 210;
 const pageHeightMm = 297;
-const fullBleedMm = { w: 65.175, h: 92.175 };
 const cutLineMm = { w: 62, h: 89 };
+const edgeMarginMm = 7;
+const gapMm = 5;
 
 const columns = 3;
 const rows = 3;
@@ -21,8 +22,8 @@ const pageHeightPx = mmToPx(pageHeightMm);
 const pageCenterX = Math.round(pageWidthPx / 2);
 const pageCenterY = Math.round(pageHeightPx / 2);
 
-const marginXmm = (pageWidthMm - columns * fullBleedMm.w) / 2;
-const marginYmm = (pageHeightMm - rows * fullBleedMm.h) / 2;
+const slotWidthMm = cutLineMm.w;
+const slotHeightMm = cutLineMm.h;
 
 const formatOffset = (px) => `${px >= 0 ? "+" : "-"}${Math.abs(px)}`;
 
@@ -32,8 +33,8 @@ const Positions = Array(ItemsPerSheet)
     const row = Math.floor(i / columns);
     const col = i % columns;
 
-    const centerXmm = marginXmm + (col + 0.5) * fullBleedMm.w;
-    const centerYmm = marginYmm + (row + 0.5) * fullBleedMm.h;
+    const centerXmm = edgeMarginMm + slotWidthMm / 2 + col * (slotWidthMm + gapMm);
+    const centerYmm = edgeMarginMm + slotHeightMm / 2 + row * (slotHeightMm + gapMm);
 
     const centerXpx = mmToPx(centerXmm);
     const centerYpx = mmToPx(centerYmm);
