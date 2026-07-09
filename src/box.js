@@ -1,8 +1,8 @@
 const fs = require("fs");
 
-const boxWidth = 225;
-const boxHeight = 295;
-const boxDepth = 50;
+const boxWidth = 120;
+const boxHeight = 120;
+const boxDepth = 51;
 
 const boxTopWidth = boxWidth;
 const boxTopHeight = boxHeight;

@@ -7,7 +7,7 @@ const { bleed, density, mmToPx } = require("./card-lib");
 
 const cardWidthMm = 63.5;
 const cardHeightMm = 88.9;
-const inputDir = "in/card63.5x88.9mm";
+const inputDir = "tmp";
 const background = process.env.BACKGROUND || "#ffffff";
 const iccProfile = process.env.ICC_PROFILE || process.argv[2];
 

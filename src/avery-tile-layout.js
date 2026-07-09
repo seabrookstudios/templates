@@ -1,7 +1,7 @@
 const { DateTime } = require("luxon");
 const glob = require("glob");
 
-const { sh, createNewCanvas, addLayer, finalise } = require("../../18holes/tile-builder/card-lib");
+const { sh, createNewCanvas, addLayer, finalise } = require("./card-lib");
 
 const cardWidth = 606;
 const cardHeight = 606;

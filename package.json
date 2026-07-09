@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "card85-cmyk-pdf": "node src/card85-cmyk-pdf.js"
+    "cmyk-pdf": "node src/card85-cmyk-pdf.js"
   },
   "author": "Seabrook Studios",
   "license": "MIT",
